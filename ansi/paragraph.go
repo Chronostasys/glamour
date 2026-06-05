@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"io"
 	"strings"
-
-	"charm.land/lipgloss/v2"
 )
 
 // A ParagraphElement is used to render individual paragraphs.
@@ -45,7 +43,7 @@ func (e *ParagraphElement) Finish(w io.Writer, ctx RenderContext) error {
 		if !ctx.options.PreserveNewLines {
 			blk = strings.ReplaceAll(blk, "\n", " ")
 		}
-		flow := lipgloss.Wrap(blk, int(bs.Width(ctx)), "") //nolint: gosec
+		flow := WrapCJK(blk, int(bs.Width(ctx)), "") //nolint: gosec
 
 		_, err := io.WriteString(mw, flow)
 		if err != nil {
